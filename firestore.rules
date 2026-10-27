@@ -19,6 +19,17 @@ service cloud.firestore {
                     && resource.data.participants.keys().hasOnly(request.resource.data.participants.keys());
 
       allow delete: if false;
+
+      // Gift photos: one small document per photo, only inside an existing draw.
+      match /images/{imageId} {
+        allow get: if true;
+        allow list: if false;
+        allow create, update: if exists(/databases/$(database)/documents/groups/$(groupId))
+                              && request.resource.data.keys().hasOnly(['src'])
+                              && request.resource.data.src is string
+                              && request.resource.data.src.size() < 400000;
+        allow delete: if true;
+      }
     }
 
     // Everything else is locked.

@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /groups/{groupId} {
+      // Anyone with the (unguessable) link can open their group,
+      // but nobody can list/browse all groups.
+      allow get: if true;
+      allow list: if false;
+
+      // Creating a draw: 3–40 people, R500 budget recorded.
+      allow create: if request.resource.data.keys().hasAll(['name', 'participants', 'budget'])
+                    && request.resource.data.participants.size() >= 3
+                    && request.resource.data.participants.size() <= 40;
+
+      // Updates may only touch participants, and can't add or remove people.
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['participants'])
+                    && request.resource.data.participants.keys().hasOnly(resource.data.participants.keys())
+                    && resource.data.participants.keys().hasOnly(request.resource.data.participants.keys());
+
+      allow delete: if false;
+    }
+
+    // Everything else is locked.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

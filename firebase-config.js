@@ -3,10 +3,10 @@
 // Replace each value below, keeping the quote marks and commas.
 
 export const firebaseConfig = {
-  apiKey: "PASTE_YOUR_API_KEY",
-  authDomain: "PASTE_YOUR_AUTH_DOMAIN",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_STORAGE_BUCKET",
-  messagingSenderId: "PASTE_YOUR_SENDER_ID",
-  appId: "PASTE_YOUR_APP_ID"
+  apiKey: "AIzaSyCPqNW5HX94X9-rY__3jukWyQIwueUYiA4",
+  authDomain: "family-secret-santa-ba4a0.firebaseapp.com",
+  projectId: "family-secret-santa-ba4a0",
+  storageBucket: "family-secret-santa-ba4a0.firebasestorage.app",
+  messagingSenderId: "532044038692",
+  appId: "1:532044038692:web:8dc725f92202d78d364eb1"
 };
